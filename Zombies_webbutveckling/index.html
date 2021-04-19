@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="style.css">
+<script src="https://koda.nu/simple.js">
+
+alert("Press space to kill 5 random zombies and good luck!"); //Skriver ut ett medelande innan spelet börjar
+
+var zombies = []; //Gör variabeln zombies till en lista
+
+var i = 0; //Ger variabeln i värdet 0
+
+while (i < 10)
+{
+    zombies.push({x: random(totalWidth), y: random(totalHeight), speed: random(3,7)});
+
+    i += 1;
+} // Skapar zombiesarna så att de spawnar på en slumpad plats med slumpad fart.
+
+function update()
+{
+    clearScreen();
+
+    var i = 0;
+
+    var x = 10; // ger x = 10 som är antal zombies
+
+    if (keyboard.space) // när man trycker ner space så försvinner 5 zombies
+            x -= 5;
+
+    while (i < x) // detta bestämmer hur många zombies som spawnas. Det blir 10st eftersom x = 10
+    {
+        var zombie = zombies[i];
+
+        picture(zombie.x, zombie.y, "mindrezombie.png") //Zombiebild
+
+        if (zombie.x < mouse.x)
+            zombie.x += zombie.speed;
+        else
+            zombie.x -= zombie.speed;
+
+        if (zombie.y < mouse.y)
+            zombie.y += zombie.speed;
+        else
+            zombie.y -= zombie.speed; 
+        //gör så att zombiesarna följer efter musen
+
+        if (distance(mouse, zombie) < 5) //att spelet är över och att det kommer du ett medelande.
+
+        {
+            alert("Game over");
+            stopUpdate();
+        }
+        i += 1;
+
+    }    
+}   
+
+
+</script>
